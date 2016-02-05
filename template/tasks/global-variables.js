@@ -20,7 +20,8 @@ module.exports = {
   clientDir: clientDir,
   publicDir: publicDir,
   bowerDir: publicDir + "bower_components/",
-  bowerPackages: args.package ? args.package.split(/[, ]+/) : null
+  bowerPackages: args.package ? args.package.split(/[, ]+/) : null,
+  localPackages: args.local ? currentDir + args.local : null
 };
 
 

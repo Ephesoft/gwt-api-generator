@@ -260,10 +260,18 @@ gulp.task('copy:pom', function() {
   fs.writeFileSync(pom, new Buffer(tpl(_.merge({}, null, globalVar, helpers))));
 });
 
+gulp.task('copy:local', function() {
+    if(globalVar.localPackages) {
+        return gulp.src(globalVar.localPackages + '**')
+            .pipe(gulp.dest(globalVar.bowerDir));
+    }
+});
+
+
 gulp.task('default', function(){
   if(args.pom) {
-    runSequence('clean', 'bower:install', 'generate', 'copy:lib', 'copy:static-gwt-module', 'copy:pom');
+    runSequence('clean', 'bower:install', 'copy:local', 'generate', 'copy:lib', 'copy:static-gwt-module', 'copy:pom');
   } else {
-    runSequence('clean', 'bower:install', 'generate', 'copy:lib', 'copy:static-gwt-module');
+    runSequence('clean', 'bower:install', 'copy:local', 'generate', 'copy:lib', 'copy:static-gwt-module');
   }
 });

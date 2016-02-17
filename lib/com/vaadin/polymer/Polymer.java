@@ -150,24 +150,7 @@ public abstract class Polymer {
 
     private static native void whenPolymerLoaded(Function ok)
     /*-{
-        function done() {
-          // Set our static reference to Base
-          @com.vaadin.polymer.Polymer::Polymer = $wnd.Polymer;
-          @com.vaadin.polymer.Polymer::Base = $wnd.Polymer.Base;
-          // Polymer dynamic loaded does not remove unresolved
-          $doc.body.removeAttribute('unresolved');
-          //
-          ok();
-        }
-        if (!$wnd.Polymer) {
-            var l = $doc.createElement('link');
-            l.rel = 'import';
-            l.href = @com.vaadin.polymer.Polymer::absoluteHref(*)('polymer');
-            l.onload = done;
-            $doc.head.appendChild(l);
-        } else {
-           done();
-        }
+
     }-*/;
 
     /**
@@ -182,7 +165,7 @@ public abstract class Polymer {
      * @param err callback to run in case of failure
      */
     public static void importHref(String hrefOrTag, final Function ok, final Function err) {
-        final String href = absoluteHref(hrefOrTag);
+        /*final String href = absoluteHref(hrefOrTag);
         if (!urlImported.contains(href)) {
             if (!isRegistered(href)) {
                 whenPolymerLoaded(new Function() {
@@ -197,7 +180,7 @@ public abstract class Polymer {
         }
         if (ok != null) {
             Base.importHref(href, ok, err);
-        }
+        }*/
     }
 
     /**
@@ -228,7 +211,7 @@ public abstract class Polymer {
      * @param err callback to run in case of failure
      */
     public static void importHref(final List<String> hrefs, final Function ok, Function err) {
-        Function allOk = ok == null ? ok : new Function() {
+        /*Function allOk = ok == null ? ok : new Function() {
             int count = hrefs.size();
             public Object call(Object arg) {
                 if (--count == 0) {
@@ -239,7 +222,7 @@ public abstract class Polymer {
         };
         for (String href : hrefs) {
             importHref(href, allOk, err);
-        }
+        }*/
     }
 
     /**
@@ -257,7 +240,7 @@ public abstract class Polymer {
     }
 
     public static <T> void ensureCustomElement(final T elem, String... imports) {
-        if (isRegisteredElement(elem)) {
+        /*if (isRegisteredElement(elem)) {
             return;
         }
         // Delay this so as the developer gets an early version of the element and
@@ -281,7 +264,7 @@ public abstract class Polymer {
                 restoreProperties((Element)elem);
                 return null;
             }
-        }, (Element)elem);
+        }, (Element)elem);*/
     }
 
     /**
@@ -363,25 +346,7 @@ public abstract class Polymer {
      */
     public static native void whenReady(Function f, Element e)
     /*-{
-        function done() {
-            $wnd.HTMLImports.whenReady(!e ? f : function() {
-              var id = setInterval(function() {
-                if (@com.vaadin.polymer.Polymer::isRegisteredElement(*)(e)) {
-                  clearInterval(id);
-                  f(e);
-                }
-              }, 0);
-            });
-        }
-        if (!$wnd.HTMLImports) {
-            var s = $doc.createElement('script');
-            s.src = @com.vaadin.polymer.Polymer::absoluteHref(*)
-                        ('webcomponentsjs/webcomponents-lite.min.js');
-            s.onreadystatechange = s.onload = done;
-            $doc.head.appendChild(s);
-        } else {
-           done();
-        }
+
     }-*/;
 
     /**
